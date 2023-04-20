@@ -50,9 +50,32 @@ class XRayDataset(Dataset):
         row = self.data.iloc[idx]
         label = row['label']
         image = cv2.imread(row['filename'])
-        x=0
+     
         if self.transform:
-            x=1
-            # i think we need to call a transform function here. x=1 is just filler
-        
+            image = self.transform(image)
+        if not self.transform:
+            image = self.resize(image)
+  
         return image, label
+    
+    def resize(self):
+        length = self.data['length'].mean()
+        ratio = self.data['ratio'].mean()
+        T.Compose([
+            T.ToPILImage(), 
+            T.Resize((int(length), int(length/ratio))), # Resize the image to match mean ratio
+            T.ToTensor(), 
+            T.Normalize(mean=[self.data['ratio'].mean()]*3, std=[self.data['ratio'].std()]*3) # Normalize the image
+        ])
+
+    def transform(self):
+        length = self.data['length'].mean()
+        ratio = self.data['ratio'].mean()    
+        T.Compose([
+            T.ToPILImage(), 
+            T.RandomAdjustSharpness(sharpness_factor=0.5),
+            T.GaussianBlur(kernel_size=(5, 9), sigma=(0.1, 5)),
+            T.Resize((int(length), int(length/ratio))), # Resize the image to match mean ratio
+            T.ToTensor(), 
+            T.Normalize(mean=[self.data['ratio'].mean()]*3, std=[self.data['ratio'].std()]*3) 
+        ])
