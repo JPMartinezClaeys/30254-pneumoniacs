@@ -61,7 +61,7 @@ imgs_df_val = imgs_df.loc[imgs_df.loc[:,"set"]=="val",:]
 
 imgs_df_test.to_csv(os.path.join(current_dir, "data/csv_files/test.csv"), index = False)
 imgs_df_train.to_csv(os.path.join(current_dir, "data/csv_files/train.csv"), index = False)
-imgs_df_train.to_csv(os.path.join(current_dir, "data/csv_files/val.csv"), index = False)
+imgs_df_val.to_csv(os.path.join(current_dir, "data/csv_files/val.csv"), index = False)
 
 
 #4. Count number of observations
