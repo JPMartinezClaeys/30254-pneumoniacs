@@ -69,6 +69,8 @@ class XRayDataset(Dataset):
         ])
 
     def transform(self):
+        """
+        Method to transform images withint the training """
         length = self.data['length'].mean()
         ratio = self.data['ratio'].mean()    
         T.Compose([
