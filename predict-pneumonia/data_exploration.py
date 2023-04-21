@@ -31,6 +31,8 @@ for dataset in sets:
                 'length':img_l,'width':img_w,'ratio':img_ratio,'label':label,
                 'set':dataset},ignore_index=True)
 
+imgs_df.loc[:,["length","width","ratio"]]
+
 #2.Graph distribution of images
 def plot_shape_distrib(shape_col,n_bins=20):
     """ 
