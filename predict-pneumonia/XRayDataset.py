@@ -49,7 +49,7 @@ class XRayDataset(Dataset):
         """
         row = self.data.iloc[idx]
         label = row['label']
-        image = cv2.imread(row['filename'])
+        image = read_image(row['filename']) #Change to torchivision read_image
 
         if self.transform:
             image = self.transform(image)
