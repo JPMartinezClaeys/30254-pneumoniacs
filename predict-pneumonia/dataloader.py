@@ -13,7 +13,7 @@ transforms = T.Compose([
             T.ToPILImage(), 
             T.RandomAdjustSharpness(sharpness_factor=10),
             T.ColorJitter(brightness=.5, hue=.3),
-            T.Resize((int(888.0), int(888.0/0.71))), # Resize the image to match median ratio using median length 
+            T.Resize((int(512), int(512))), # Resize the image to match median ratio using median length 
             T.ToTensor()
         ])
 
